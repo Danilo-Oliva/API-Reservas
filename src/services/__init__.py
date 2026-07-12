@@ -1,0 +1,1 @@
+""" Logica de negocio (reglas, validaciones, envio de alertas) """

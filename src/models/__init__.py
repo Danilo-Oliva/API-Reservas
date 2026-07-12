@@ -1,0 +1,1 @@
+""" Modelos de SQLAlchemy (tablas de la DB)"""
