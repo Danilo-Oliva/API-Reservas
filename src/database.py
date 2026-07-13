@@ -18,3 +18,7 @@ engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
   # BIND -> Le indica a que DB debe conectarse
   # =====================================================================
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine) 
+
+# 4 Crear la clase base
+# todos los modelos (tablas) van a hererdar de esta clase para que SQLAlchemy sepa qu existen
+Base = declarative_base()
