@@ -20,4 +20,4 @@ class Usuario(Base):
   
   # crear relacion virtual con el modelo Reserva
   #'back_populates' conecta el modelo Usuarios con el campo 'cliente' de la Reserva
-  reservas = relationship("Reserva", back_populates="clientes", cascade="all, delete-orphan")
+  reservas = relationship("Reserva", back_populates="cliente", cascade="all, delete-orphan")
