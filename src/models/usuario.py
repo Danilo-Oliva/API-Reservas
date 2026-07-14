@@ -9,6 +9,7 @@ class Usuario(Base):
   
   # definir las columnas de la tabla
   id = Column(Integer, primary_key=True, index=True, autoincrement=True)
+  nombre = Column(String, nullable=False)
   
   # unique para que no hayan 2 personas con el mismo mail
   email = Column(String, unique=True, index=True, nullable=False)
