@@ -11,7 +11,7 @@ class UsuarioCreate(BaseModel):
 
 
 # esquima que define que tipo de datos le devolvemos al cliente (response)
-class UsuarioRespone(BaseModel):
+class UsuarioResponse(BaseModel):
     id: int
     nombre: str
     email: str
