@@ -38,6 +38,34 @@ def crear_reserva(reserva: ReservaCreate, db:Session = Depends(get_db)):
       status_code=404,
       detail="No podés agendar una reserva para una fecha u hora que ya pasó."
     )
+    
+  # validar que no haya solapamiento para el mismo usuario
+  # buscar si ya existe reserva del mismo usuario en ese mismo minuto exacto
+  reserva_conflictiva = db.query(Reserva).filter(
+    Reserva.usuario_id == reserva.usuario_id,
+    Reserva.fecha_hora == reserva.fecha_hora,
+    Reserva.estado == "confirmada"
+  ).first()
+  
+  if reserva_conflictiva:
+    raise HTTPException(
+      status_code=400,
+      detail=f"Ya tenés una reserva activa para el servicio '{reserva_conflictiva.servicio}' en esa misma fecha y hora."
+    )
+    
+  # validar solapamiento del servicio
+  # buscar si el servicio ya esta ocupado por otra persona a esa hora
+  servicio_ocupado = db.query(Reserva).filter(
+    Reserva.servicio == reserva.servicio,
+    Reserva.fecha_hora == reserva.fecha_hora,
+    Reserva.estado == "confirmada"
+  ).first()
+  
+  if servicio_ocupado:
+    raise HTTPException(
+      status_code=400,
+      detail="Este horario ya está reservado para ese servicio por otro usuario."
+    )
   
   # si pasó las validaciones, se crea la reserva
   nueva_reserva = Reserva(
