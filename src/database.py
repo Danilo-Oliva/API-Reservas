@@ -1,4 +1,5 @@
-""" Conexion a la DB y sesión de SQLAlchemy"""
+"""Conexion a la DB y sesión de SQLAlchemy"""
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 
@@ -10,14 +11,14 @@ DATABASE_URL = "sqlite:///./reservas.db"
 # 'connect_args' solo se necesita en  SQLite para permitir que multiples hilos interactuen con el
 engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
 
-#3  Crear la fabrica de sesiones(SessionLocal)
+# 3  Crear la fabrica de sesiones(SessionLocal)
 # cada vez que un usuario haga una reserva, se abre una sesion de esta fabrica para operar
-  # =====================================================================
-  # AUTOCOMMIT -> evita que se guarden los cambios automaticamente tras cada operacion, obliga a usar session.commit()
-  # AUTOFLUSH -> evita que se notifique de cambios pendientes a la DB ciuando hacemos un cambio
-  # BIND -> Le indica a que DB debe conectarse
-  # =====================================================================
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine) 
+# =====================================================================
+# AUTOCOMMIT -> evita que se guarden los cambios automaticamente tras cada operacion, obliga a usar session.commit()
+# AUTOFLUSH -> evita que se notifique de cambios pendientes a la DB ciuando hacemos un cambio
+# BIND -> Le indica a que DB debe conectarse
+# =====================================================================
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 # 4 Crear la clase base
 # todos los modelos (tablas) van a hererdar de esta clase para que SQLAlchemy sepa qu existen
